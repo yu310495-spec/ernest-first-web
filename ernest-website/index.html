@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的網頁</title>
+<style>
+    .navbar{
+        background-color: #333;
+        color: white;
+        display: flex;
+        justify-content: space-between; /* 讓 Logo 在左，連結在右 */
+        align-items: center;    /* 垂直置中 */
+        padding: 10px 40px;
+        /* 釘在頂端的魔術 */
+        position: fixed;
+        top: 0;
+        width: 100%;    /* 寬度填滿螢幕 */
+        z-index: 1000;  /* 確保它永遠疊在最上面，不會被圖片擋住 */
+        box-sizing: border-box; /* 重要！確保 padding 不會把寬度撐出螢幕 */
+    }
+    .nav-links{
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    .nav-links a{
+        color: wheat;
+        text-decoration: none;
+        transition: 0.3s;
+        display: inline-block;  /* 加上這行，放大效果才會生效 */
+        padding: 8px 15px;  /* 上下 8px，左右 15px，這是隱形的框 */
+        border-radius: 5px;  /* 預設圓角 */
+    }
+    .nav-links a:hover{
+        color: #cdd0d3;
+        text-shadow: 0px 0px 20px rgba(255, 0, 0, 1.2);    /* 這句沒動 */
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
+   .logo {
+        font-size: 1.5rem;      /* 讓字大一點點 */
+        font-weight: 900;       /* 特粗體 */
+        letter-spacing: 2px;    /* 讓字母之間有空隙，更有呼吸感 */
+        color: #48b114;         /* 換成你喜歡的亮綠色 */
+        text-transform: uppercase; /* 自動把所有字母變大寫 */
+        cursor: default;        /* 滑鼠指著它時維持箭頭 */
+    }
+    .logo:hover{
+        color:#b35f00;
+        transform: scale(1.1);
+        text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3); /* 語法：水平偏移 垂直偏移 模糊半徑 顏色 */
+        display: inline-block;  /* 記得加這行，scale 才會動 */
+    }
+    h1{
+        color: azure;
+        background-color: rgb(72, 177, 20);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;    /* 讓東西水平置中 */
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    h2{
+        color: azure;
+        background-color: rgb(17, 18, 17);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;    /* 讓東西水平置中 */
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+   .card {
+        border: 2px solid blue;   /* 加上藍色實線邊框 */
+        padding: 20px;               /* 讓內容跟框框之間有呼吸空間 */
+        border-radius: 10px;         /* 讓框框變圓角 */
+        margin: 20px;                 /* 讓框框外面留點空白 */
+        background-color: #cdd0d3;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* 語法：水平 垂直 模糊距離 擴散距離 顏色 */
+        transition:0.3s;
+    }
+    .card:hover{
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transfrom: translateY(-5px) scale(1.02) /* 向上移動一點點 + 稍微放大 */
+    }
+    body{
+        background: linear-gradient(135deg, #f9faf5 0%, #d9d9c7 100%);  
+        min-height: 100vh;
+        margin: 0;                   /* 消除邊緣空白 */
+        display: flex;
+        flex-direction: column;   /* 讓內容由上往下排 */
+        align-items: center;      /* 水平居中 */
+        padding-top: 100px;
+    }
+    .study-note{
+        color:rgb(2, 34, 34);
+        background-color: rgb(174, 168, 180);
+        border-radius: 5px;
+        text-align: center;
+    }
+    .my-button{
+        /* 1. 核心形狀 */
+        display: inline-block;  /* 重要！讓背景只包裹文字，不再橫跨整個螢幕 */
+        padding: 10px 25px;     /* 上下留 10px，左右留 25px (增加點擊感) */
+        background-color: rgb(100, 38, 19);
+        color: white;     /* 文字變白色 */
+        border-radius: 50px;    /* 膠囊形圓角 */
+        /* 2. 字體與裝飾 */
+        font-weight: bold;  /* 加粗文字 */
+        text-decoration: none;  /* 去掉底線 */
+        cursor: pointer;    /* 滑鼠移上去會變成「小手」，暗示可以點擊 */
+        /* 3. 讓變化更平滑 */
+        transition: 0.3s;   /* 變色時會有 0.3 秒的過度，不會太突兀 */
+    }
+     .my-button:hover{  /* :hover 代表「當滑鼠懸浮在上面時」的狀態 */
+        background-color: #0056b3;
+        transform: scale(1.05); /* 按鈕稍微放大 1.05 倍 (很有互動感！) */
+    }
+    .card-img1{
+        width: 100%;    /* 讓圖片寬度剛好填滿 card 盒子 */
+        height: auto;   /* 高度自動縮放，才不會變形 */
+        border-radius: 15px;    /* 讓圖片也有圓角，看起來更現代 */
+        margin-bottom: 15px;    /* 跟下方的文字保持距離 */
+        transition:0.3s; /* 緩慢放大，不要被嚇到 */
+    }
+    .card-img1:hover{
+        transform: scale(1.05);  /* 圖片放大 */ 
+    }
+    .card-img2{
+        width: 100%;    /* 讓圖片寬度剛好填滿 card 盒子 */
+        height: auto;   /* 高度自動縮放，才不會變形 */
+        border-radius: 50px;    /* 讓圖片也有圓角，看起來更現代 */
+        margin-bottom: 15px;    /* 跟下方的文字保持距離 */
+        transition:0.3s; /* 緩慢放大，不要被嚇到 */
+    }
+    .card-img2:hover{
+        transform: scale(0.95);  /* 圖片放大 */ 
+    }
+    .container{
+        display: flex;  /* 核心魔術：讓裡面的東西橫著排隊 */
+        justify-content: center;    /* 讓卡片們在畫面中間集合 */
+        gap: 20px;   /* 讓卡片之間保持 20px 的距離，不會擠在一起 */
+        flex-wrap: wrap;   /* 厲害的功能：如果螢幕太窄，第二張會自動掉到下一行 */
+        padding: 20px; 
+    }
+@media(max-width: 768px){
+    /* 這裡面寫的東西，只有在螢幕窄的時候才會「疊上去」覆蓋掉上面的。沒寫到的屬性，則會繼續延用上面的設定。*/
+    .containter{
+        flex-direction: column;
+    }
+    .navber{
+        padding: 10px 20px;
+    }
+}
+</style>
+</head>
+
+
+
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Ernest Projocet</div>
+        <ul class="nav-links">
+            <li><a href="#">首頁</a></li>
+            <li><a href="#">關於我</a></li>
+            <li><a href="https://www.google.com">外部連結</a></li>
+        </ul>
+    </nav>
+    <div class="card">
+        <h1>Ernest的練習網頁！</h1>
+        <p class="study-note">這是我在 Mac 上寫的第一個網頁內容。</p>
+    </div>
+    <section class="container">
+        <div class="img-1">
+            <h2>第一張隨機圖</h2>
+            <img src="https://picsum.photos/200" alt="第一張隨機圖片" class="card-img1">
+            <p class="study-note">這會放大。</p>
+        </div>
+        <div class="img-2">
+            <h2>第二張隨機圖</h2>
+            <img src="https://picsum.photos/201" alt="第二張隨機圖片" class="card-img2">
+            <p class="study-note">這會縮小。</p>
+         </div>
+    </section >
+    <button class="my-button">點擊這裡</button>
+    <a href="https://www.google.com">點我前往 Google</a>
+
+</body>
+</html>
